@@ -2,14 +2,11 @@ import pygame
 
 pygame.init()
 
-background_color =  (255, 255, 255)
-(height, width) = (800, 600)
-
-screen = pygame.display.set_mode((height, width))
+screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Trial 1")
-screen.fill(background_color)
 
 pygame.display.flip()
+clock = pygame.time.Clock()
 
 crashed = False
 
@@ -18,3 +15,7 @@ while not crashed:
         if event.type == pygame.QUIT:
             crashed == True
             quit()
+        print(event)
+    pygame.display.update()
+    clock.tick(60)
+    print(event)
