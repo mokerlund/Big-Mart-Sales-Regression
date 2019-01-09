@@ -11,10 +11,10 @@ screen.fill(background_color)
 
 pygame.display.flip()
 
-running = True
+crashed = False
 
-while running:
+while not crashed:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            running == False
+            crashed == True
             quit()
