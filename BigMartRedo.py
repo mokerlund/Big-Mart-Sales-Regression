@@ -39,3 +39,7 @@ df['Item_Fat_Content'] = df['Item_Fat_Content'].replace({'LF':'Low Fat', 'reg':'
 #Outlet_types are Grocery store, supermarkets 1, 2, and 3, this is fine for now
 
 pd.crosstab(df['Outlet_Location_Type'], df['Outlet_Size'], margins=True)
+
+df['Item_Real_Type'] = df['Item_Identifier'].apply(lambda x: x[0:2])
+df['Item_Real_Type'] = df['Item_Real_Type'].map({'NC':'Non-Consumables', 'FD':'Food', 'DR':'Drink'})
+
