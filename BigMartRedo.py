@@ -6,7 +6,8 @@ from scipy.stats import norm
 from scipy.stats import expon
 from scipy.stats import binom
 from scipy.stats import poisson
-
+import matplotlib.style as style
+style.use('classic')
 df = pd.read_csv('bigmartsalestrain.csv')
 #train = pd.read_csv('bigmartsalestrain.csv')
 
@@ -24,13 +25,13 @@ df.columns
 ##
 
 #Removing null values
-avg_weight = df.['Item_Weight'].mean()
-Item_Weight_missing = df.['Item_Weight'].isnull()
+avg_weight = df['Item_Weight'].mean()
+Item_Weight_missing = df['Item_Weight'].isnull()
 df.loc[Item_Weight_missing, 'Item_Weight'] = avg_weight
 
 
 missing = df['Outlet_Size'].isnull()
-Outlet_Size_missing = df.['Outlet_Size'].isnull()
+Outlet_Size_missing = df['Outlet_Size'].isnull()
 df.loc[Outlet_Size_missing, 'Outlet_Size'] = missing
 
 df['Item_Fat_Content'] = df['Item_Fat_Content'].replace({'LF':'Low Fat', 'reg':'Regular', 'low fat':'Low Fat'})
@@ -43,3 +44,13 @@ pd.crosstab(df['Outlet_Location_Type'], df['Outlet_Size'], margins=True)
 df['Item_Real_Type'] = df['Item_Identifier'].apply(lambda x: x[0:2])
 df['Item_Real_Type'] = df['Item_Real_Type'].map({'NC':'Non-Consumables', 'FD':'Food', 'DR':'Drink'})
 
+x = df['Item_MRP']
+y = df['Item_Outlet_Sales']
+area = df['Item_Visibility'] * 300
+plt.scatter(x, y, s=area, alpha=0.5)
+plt.xlabel('Item_MRP')
+plt.ylabel('Item_Outlet_Sales')
+
+modded_visibility = df['Item_Visibility'] == 0
+mean_visibility = df['Item_Visibility'].mean()
+df.loc[modded_visibility, 'Item_Visibility'] = mean_visibility
