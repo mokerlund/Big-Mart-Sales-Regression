@@ -24,18 +24,18 @@ df.columns
 ##
 
 #Removing null values
-avg_weight = df.Item_Weight.mean()
-Item_Weight_missing = df.Item_Weight.isnull()
+avg_weight = df.['Item_Weight'].mean()
+Item_Weight_missing = df.['Item_Weight'].isnull()
 df.loc[Item_Weight_missing, 'Item_Weight'] = avg_weight
 
 
-missing = df.Outlet_Size.isnull()
-Outlet_Size_missing = df.Outlet_Size.isnull()
+missing = df['Outlet_Size'].isnull()
+Outlet_Size_missing = df.['Outlet_Size'].isnull()
 df.loc[Outlet_Size_missing, 'Outlet_Size'] = missing
 
-df.Item_Fat_Content = df.Item_Fat_Content.replace({'LF':'Low Fat', 'reg':'Regular', 'low fat':'Low Fat'})
+df['Item_Fat_Content'] = df['Item_Fat_Content'].replace({'LF':'Low Fat', 'reg':'Regular', 'low fat':'Low Fat'})
 
 #Outlet sizes are medium, true, small and high **Needs to be changed, doesn't make sense
 #Outlet_types are Grocery store, supermarkets 1, 2, and 3, this is fine for now
 
- 
+pd.crosstab(df['Outlet_Location_Type'], df['Outlet_Size'], margins=True)
